@@ -27,7 +27,7 @@ export const categories = [
     id: 1,
     img: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
     title: "SOUTH INDIAN STYLE!",
-    cat: "nepali-saree",
+    cat: "saree",
   },
   {
     id: 2,
