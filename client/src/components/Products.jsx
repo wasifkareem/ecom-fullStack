@@ -30,9 +30,20 @@ const Products = ({ cat, filters, sort }) => {
     getProducts();
   }, [cat]);
 
+  useEffect(() => {
+    cat &&
+      setFilteredProducts(
+        products.filter((item) =>
+          Object.entries(filters).every(([key, value]) =>
+            item[key].includes(value)
+          )
+        )
+      );
+  }, [products, cat, filters]);
+
   return (
     <Container>
-      {popularProducts.map((item) => (
+      {filteredProducts.map((item) => (
         <Product item={item} key={item.id} />
       ))}
     </Container>
