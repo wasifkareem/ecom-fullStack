@@ -5,6 +5,7 @@ import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { Add, Remove } from "@mui/icons-material";
 import { mobile } from "../responsive";
+import { useSelector } from "react-redux";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -54,6 +55,7 @@ const Product = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 35px 0px;
+  max-height: 150px;
   ${mobile({ flexDirection: "column" })}
 `;
 const ProductDetail = styled.div`
@@ -61,6 +63,8 @@ const ProductDetail = styled.div`
   flex: 2;
 `;
 const Image = styled.img`
+  object-position: top;
+  object-fit: cover;
   width: 200px;
 `;
 const Details = styled.div`
@@ -75,6 +79,9 @@ const ProductColor = styled.span`
   width: 20px;
   height: 20px;
   border-radius: 50%;
+  border-width: 1px;
+  border-color: gray;
+  border-style: solid;
   background-color: ${(props) => props.color};
 `;
 const ProductSize = styled.span``;
@@ -102,7 +109,7 @@ const ProductPrice = styled.div`
 `;
 
 const Hr = styled.hr`
-  background-color: #eee;
+  background-color: lightgray;
   border: none;
   height: 1px;
 `;
@@ -136,6 +143,7 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
   return (
     <Container>
       <Navbar />
@@ -152,65 +160,43 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src="https://m.media-amazon.com/images/I/519T5pAdLNL._SX522_.jpg" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> BANARASI WEDDING SAREE
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 2987SDB33
-                  </ProductId>
-                  <ProductColor color="#167b94" />
-                  <ProductSize>
-                    <b>Size:</b> 37
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                {" "}
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>$ 30</ProductPrice>
-              </PriceDetail>
-            </Product>{" "}
-            <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src="https://5.imimg.com/data5/GO/LL/MY-61597747/exclusive-silk-saree-500x500.jpg" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> SOUTH INDIAN COLLECTION
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 2987SDS22
-                  </ProductId>
-                  <ProductColor color="#21c7b1" />
-                  <ProductSize>
-                    <b>Size:</b> 37
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                {" "}
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>$ 30</ProductPrice>
-              </PriceDetail>
-            </Product>
+            {cart.products.map((product) => (
+              <>
+                <Product>
+                  <ProductDetail>
+                    <Image src={product.img} />
+                    <Details>
+                      <ProductName>
+                        <b>Product:</b> {product.title}
+                      </ProductName>
+                      <ProductId>
+                        <b>ID:</b> {product._id}
+                      </ProductId>
+                      <ProductColor color={product.color} />
+                      <ProductSize>
+                        <b>Size:</b> {product.size}
+                      </ProductSize>
+                    </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                    <ProductAmountContainer>
+                      <Add />
+                      <ProductAmount>{product.quantity}</ProductAmount>
+                      <Remove />
+                    </ProductAmountContainer>
+                    <ProductPrice>{product.price}</ProductPrice>
+                  </PriceDetail>
+                </Product>
+                <Hr />
+              </>
+            ))}
           </Info>
+
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$80</SummaryItemPrice>
+              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -222,7 +208,7 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$80</SummaryItemPrice>
+              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
             </SummaryItem>
             <Button>CHECKOUT NOW</Button>
           </Summary>
