@@ -55,7 +55,7 @@ const Product = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 35px 0px;
-  max-height: 150px;
+  /* max-height: 150px; */
   ${mobile({ flexDirection: "column" })}
 `;
 const ProductDetail = styled.div`
@@ -65,7 +65,7 @@ const ProductDetail = styled.div`
 const Image = styled.img`
   object-position: top;
   object-fit: cover;
-  width: 200px;
+  width: 120px;
 `;
 const Details = styled.div`
   padding: 0px 20px;
