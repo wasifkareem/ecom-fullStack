@@ -1,7 +1,6 @@
 //MOST TOUGH JS CONCEPT FOR ME-REVISE AGAIN & AGAIN
 
 import { styled } from "styled-components";
-import { popularProducts } from "../data";
 import Product from "./Product";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -12,7 +11,9 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  background-color: #fcf1ed;
+  background-color: #b7883b19;
+  border-radius: 20px;
+  padding-top: 50px;
 `;
 
 const Products = ({ cat, filters, sort }) => {
@@ -65,7 +66,7 @@ const Products = ({ cat, filters, sort }) => {
       {cat
         ? filteredProducts.map((item) => <Product item={item} key={item._id} />)
         : products
-            .slice(0, 8)
+            .slice(15, 23)
             .map((item) => <Product item={item} key={item._id} />)}
     </Container>
   );
