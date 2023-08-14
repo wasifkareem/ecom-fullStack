@@ -1,10 +1,12 @@
 import { styled } from "styled-components";
 import Search from "@mui/icons-material/Search";
 import { ShoppingCartOutlined } from "@mui/icons-material";
-import { Badge } from "@mui/material";
+import { Avatar, Badge } from "@mui/material";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../redux/userRedux";
+import { cartReset } from "../redux/cartRedux";
 
 const Container = styled.div`
   height: 60px;
@@ -25,6 +27,7 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
+  ${mobile({ flex: 0 })}
 `;
 
 const Language = styled.span`
@@ -39,7 +42,7 @@ const SearchContainer = styled.div`
   align-content: center;
   margin-left: 25px;
   padding: 5px;
-  ${mobile({ marginRight: "7px", marginLeft: "15px" })}
+  ${mobile({ display: "none" })}
 `;
 
 const Input = styled.input`
@@ -54,7 +57,7 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-weight: bold;
-  ${mobile({ fontSize: "24px" })}
+  ${mobile({ fontSize: "24px", marginLeft: 15 })}
 `;
 
 const Right = styled.div`
@@ -63,7 +66,7 @@ const Right = styled.div`
   display: flex;
   justify-content: flex-end;
   ${mobile({ justifyContent: "center" })}
-  ${mobile({ flex: 2, justifyContent: "center" })}
+  ${mobile({ flex: 2, justifyContent: "end", paddingRight: 18 })}
 `;
 
 const MenuItem = styled.div`
@@ -75,6 +78,15 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
+  const user = useSelector((state) => state.user.currentUser.others);
+
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(logout());
+    dispatch(cartReset());
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -88,11 +100,55 @@ const Navbar = () => {
         </Left>
 
         <Center>
-          <Logo> FABINA.</Logo>
+          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
+            <Logo> FABINA.</Logo>
+          </Link>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          {user ? (
+            <>
+              <Avatar
+                style={{
+                  backgroundColor: "teal",
+                  borderRadius: 4,
+                  maxHeight: 37,
+                }}
+                src="/broken-image.jpg"
+              />
+              <hr />
+
+              <button
+                onClick={handleClick}
+                style={{
+                  minHeight: 37,
+                  backgroundColor: "#c91616",
+                  Align: "center",
+                  borderRadius: 4,
+                  borderStyle: "none",
+                  marginRight: 3,
+                  color: "white",
+                  cursor: "pointer",
+                }}
+              >
+                <b>Logout</b>
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to={`/register`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <MenuItem>REGISTER</MenuItem>
+              </Link>
+              <Link
+                to={`/login`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <MenuItem>SIGN IN</MenuItem>
+              </Link>
+            </>
+          )}
           <MenuItem>
             <Link to={`/cart`}>
               <Badge badgeContent={quantity} color="primary">
