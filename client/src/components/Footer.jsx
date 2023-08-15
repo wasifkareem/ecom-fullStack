@@ -133,7 +133,7 @@ const Footer = () => {
         </ContactItem>
         <ContactItem>
           <MailOutline style={{ marginRight: 10 }} />
-          +919838309598
+          +7052929702
         </ContactItem>
         <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
       </Right>
