@@ -1,12 +1,20 @@
 import { styled } from "styled-components";
 import Search from "@mui/icons-material/Search";
 import { ShoppingCartOutlined } from "@mui/icons-material";
-import { Avatar, Badge } from "@mui/material";
+import {
+  Avatar,
+  Badge,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+} from "@mui/material";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../redux/userRedux";
 import { cartReset } from "../redux/cartRedux";
+import { useState } from "react";
 
 const Container = styled.div`
   height: 60px;
@@ -115,23 +123,31 @@ const Navbar = () => {
                 }}
                 src="/broken-image.jpg"
               />
-              <hr />
 
-              <button
-                onClick={handleClick}
+              <div
                 style={{
-                  minHeight: 37,
-                  backgroundColor: "#c91616",
-                  Align: "center",
-                  borderRadius: 4,
-                  borderStyle: "none",
-                  marginRight: 3,
-                  color: "white",
-                  cursor: "pointer",
+                  minHeight: 40,
+                  minWidth: 100,
+                  borderStyle: "solid",
+                  borderColor: "gray",
+                  borderWidth: 1,
+                  marginLeft: 5,
                 }}
               >
-                <b>Logout</b>
-              </button>
+                <select
+                  name="Username"
+                  id=""
+                  style={{
+                    minHeight: 40,
+                    minWidth: 100,
+                    borderStyle: "none",
+                    fontWeight: "bold",
+                  }}
+                >
+                  <option value="">username</option>
+                  <option value="">Logout</option>
+                </select>
+              </div>
             </>
           ) : (
             <>
