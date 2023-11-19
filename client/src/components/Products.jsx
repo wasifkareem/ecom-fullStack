@@ -25,8 +25,8 @@ const Products = ({ cat, filters, sort }) => {
       try {
         const res = await axios.get(
           cat
-            ? `https://shop-vivi.onrender.com/api/products?category=${cat}`
-            : "https://shop-vivi.onrender.com/api/products"
+            ? `https://ecom-t8hk.onrender.com/api/products?category=${cat}`
+            : "https://ecom-t8hk.onrender.com/api/products"
         );
         setProducts(res.data);
       } catch (err) {}
